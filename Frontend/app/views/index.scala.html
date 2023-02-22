@@ -1,0 +1,23 @@
+@(message: String)
+    @import java.math.BigInteger;var i = 0
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    </head>
+    <body>
+
+        <header class="topbar">
+            <h1 class="focused" style="font-size: 37px;
+                color: #57a957">
+                <strong>Login Message</strong>
+            </h1>
+            <p class="focused" style="font-size: 20px;
+                color: #3F51B5">@message</p>
+            <a href="@routes.HomeController.addPosition()">Post New Position</a>
+
+
+        </header>
+
+    </body>
+</html>
