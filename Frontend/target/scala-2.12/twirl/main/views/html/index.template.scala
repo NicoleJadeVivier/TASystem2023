@@ -25,13 +25,13 @@ import play.core.j.PlayFormsMagicForJava._
 object index extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[String,play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
-  def apply/*1.2*/(message: String):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*1.2*/(authorizeMessage: String):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
-/*2.6*/import java.math.BigInteger;var i = 0
+/*2.2*/import java.math.BigInteger;var i = 0
 
 
-Seq[Any](format.raw/*2.1*/("""    """),format.raw/*3.1*/("""<!DOCTYPE html>
+Seq[Any](format.raw/*3.1*/("""<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -41,11 +41,13 @@ Seq[Any](format.raw/*2.1*/("""    """),format.raw/*3.1*/("""<!DOCTYPE html>
         <header class="topbar">
             <h1 class="focused" style="font-size: 37px;
                 color: #57a957">
-                <strong>Login Message</strong>
+                <Strong>"""),_display_(/*13.26*/authorizeMessage),format.raw/*13.42*/("""</Strong>
+                <strong>Dashboard</strong>
             </h1>
-            <p class="focused" style="font-size: 20px;
-                color: #3F51B5">"""),_display_(/*16.34*/message),format.raw/*16.41*/("""</p>
-            <a href=""""),_display_(/*17.23*/routes/*17.29*/.HomeController.addPosition()),format.raw/*17.58*/("""">Post New Position</a>
+            <a href=""""),_display_(/*16.23*/routes/*16.29*/.HomeController.addPosition()),format.raw/*16.58*/("""">Post New Position</a>
+            <br/>
+            <a href=""""),_display_(/*18.23*/routes/*18.29*/.HomeController.newApplication()),format.raw/*18.61*/("""">Create New Application</a>
+
 
 
         </header>
@@ -57,9 +59,9 @@ Seq[Any](format.raw/*2.1*/("""    """),format.raw/*3.1*/("""<!DOCTYPE html>
     }
   }
 
-  def render(message:String): play.twirl.api.HtmlFormat.Appendable = apply(message)
+  def render(authorizeMessage:String): play.twirl.api.HtmlFormat.Appendable = apply(authorizeMessage)
 
-  def f:((String) => play.twirl.api.HtmlFormat.Appendable) = (message) => apply(message)
+  def f:((String) => play.twirl.api.HtmlFormat.Appendable) = (authorizeMessage) => apply(authorizeMessage)
 
   def ref: this.type = this
 
@@ -68,11 +70,11 @@ Seq[Any](format.raw/*2.1*/("""    """),format.raw/*3.1*/("""<!DOCTYPE html>
 
               /*
                   -- GENERATED --
-                  DATE: 2023-02-22T15:20:13.416
+                  DATE: 2023-03-03T09:19:10.376
                   SOURCE: C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/app/views/index.scala.html
-                  HASH: f55a15c7ea479abf2b5717d1f4198bcc480d5ace
-                  MATRIX: 948->1|1038->24|1104->19|1134->62|1613->514|1641->521|1695->548|1710->554|1760->583
-                  LINES: 28->1|31->2|34->2|34->3|47->16|47->16|48->17|48->17|48->17
+                  HASH: 1014095ea9f7ea3c4c3ae16865360ec505c56767
+                  MATRIX: 948->1|1047->29|1113->67|1464->391|1501->407|1621->500|1636->506|1686->535|1777->599|1792->605|1845->637
+                  LINES: 28->1|31->2|34->3|44->13|44->13|47->16|47->16|47->16|49->18|49->18|49->18
                   -- GENERATED --
               */
           

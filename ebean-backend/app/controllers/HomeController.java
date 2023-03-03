@@ -1,4 +1,8 @@
 package controllers;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import models.TAPosition;
 import models.User;
 import play.Logger;
 import play.libs.Json;
@@ -18,6 +22,7 @@ public class HomeController extends Controller {
         return ok(Json.toJson("Welcome to backend!"));
     }
     public Result info() {
+        System.out.println("In info");
         Long id = 2L;
         User user = User.find.byId(id);
         List<String> infos = new ArrayList<>();
@@ -27,5 +32,32 @@ public class HomeController extends Controller {
         Seq<String> infoSeq = JavaConverters.asScalaBufferConverter(infos).asScala().toSeq();
         Logger.info("infos" + infoSeq);
         return ok(views.html.info.render(infoSeq));
+    }
+
+    public Result userData(String username) {
+        System.out.println("In userData");
+        User user = User.findByName(username);
+        if (user == null) {
+            return notFound("User does not exist");
+        } else {
+            ObjectNode result = Json.newObject();
+            result.put("firstname", user.firstname);
+            result.put("lastname", user.lastname);
+            result.put("email", user.email);
+            result.put("phonenumber", user.phoneNumber);
+            result.put("degreePlan", user.degreePlan);
+            result.put("startSem", user.startSem);
+            result.put("endSem", user.endSem);
+            return ok(result);
+        }
+    }
+
+    public Result allPositions() {
+        System.out.println("In allPositions");
+        TAPosition position = new TAPosition();
+        List<TAPosition> allPositions = TAPosition.getAllPositions();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonPositions = mapper.convertValue(allPositions, JsonNode.class);
+        return ok(jsonPositions);
     }
 }

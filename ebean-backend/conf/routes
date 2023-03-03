@@ -16,3 +16,7 @@ POST    /addPosition                 controllers.TAPositionController.addPositio
 
 POST    /newApplication              controllers.TAApplicationController.newApplication()
 GET     /info                        controllers.HomeController.info()
+GET     /userData                    controllers.HomeController.userData(username: String)
+GET     /getPositions                controllers.HomeController.allPositions()
+
+

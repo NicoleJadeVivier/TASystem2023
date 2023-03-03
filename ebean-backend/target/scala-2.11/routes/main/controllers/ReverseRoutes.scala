@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/ebean-backend/conf/routes
-// @DATE:Wed Feb 22 16:36:35 CST 2023
+// @DATE:Thu Mar 02 08:32:50 CST 2023
 
 import play.api.mvc.{ QueryStringBindable, PathBindable, Call, JavascriptLiteral }
 import play.core.routing.{ HandlerDef, ReverseRouteContext, queryString, dynamicString }
@@ -19,6 +19,18 @@ package controllers {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
+  
+    // @LINE:20
+    def allPositions(): Call = {
+      import ReverseRouteContext.empty
+      Call("GET", _prefix + { _defaultPrefix } + "getPositions")
+    }
+  
+    // @LINE:19
+    def userData(username:String): Call = {
+      import ReverseRouteContext.empty
+      Call("GET", _prefix + { _defaultPrefix } + "userData" + queryString(List(Some(implicitly[QueryStringBindable[String]].unbind("username", username)))))
+    }
   
     // @LINE:6
     def index(): Call = {

@@ -1,11 +1,14 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.libs.Json;
 import play.libs.ws.WSClient;
 import play.libs.ws.WSRequest;
 import play.libs.ws.WSResponse;
 
+import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
 public class TAApplication {
@@ -72,6 +75,17 @@ public class TAApplication {
         WSRequest request = ws.url("http://localhost:9005/newApplication");
         return request.addHeader("Content-Type", "application/json")
                 .post(res)
+                .thenApply((WSResponse r) -> {
+                    return r;
+                });
+    }
+
+    public CompletionStage<WSResponse> getUserInfo(String username) {
+        WSClient ws = play.test.WSTestClient.newClient(9005);
+
+        WSRequest request = ws.url("http://localhost:9005/userData")
+                .setQueryParameter("username", username);
+        return request.get()
                 .thenApply((WSResponse r) -> {
                     return r;
                 });

@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/conf/routes
-// @DATE:Wed Feb 22 16:24:11 CST 2023
+// @DATE:Wed Feb 22 21:55:18 CST 2023
 
 import play.api.mvc.Call
 
@@ -40,6 +40,12 @@ package controllers {
     def signupHandler(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "register")
+    }
+  
+    // @LINE:23
+    def newApplicationHandler(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "postApplication")
     }
   
     // @LINE:19

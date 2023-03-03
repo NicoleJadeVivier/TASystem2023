@@ -28,7 +28,12 @@ public class User extends Model {
     public String lastname;
 
     @Constraints.Required
+    public String title;
+
+    @Constraints.Required
     public String phoneNumber;
+    @Constraints.Required
+    public String fax;
 
     @Constraints.Required
     public String email;
@@ -46,7 +51,16 @@ public class User extends Model {
     public String zipcode;
 
     @Constraints.Required
+    public String status;
+
+    public String degreePlan;
+    public String startSem;
+    public String endSem;
+    public String facultyPosition;
     public String comments;
+    public String securityQ1;
+    public String securityQ2;
+    public String backupEmail;
 
     public static Find<Long, User> find = new Find<Long, User>(){};
 

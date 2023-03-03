@@ -1,15 +1,24 @@
 package controllers;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.libs.concurrent.HttpExecutionContext;
 import play.libs.ws.WSResponse;
 import views.html.*;
 
 import javax.inject.Inject;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Software Service Market Place
@@ -30,8 +39,32 @@ public class HomeController extends Controller {
      * Index page
      */
     public Result index() {
-        return ok(views.html.login.render(""));
+        Http.Context ctx = Http.Context.current();
+        String username = ctx.session().get("username");
+        System.out.println(username);
+        TAPosition taPosition = new TAPosition();
+        CompletionStage<WSResponse> response = taPosition.getTAPositions();
+
+        if (username != null) {
+            return response.thenApply(r -> {
+                String responseBody = r.getBody();
+                ObjectMapper objectMapper = new ObjectMapper();
+                try {
+                    TAPosition[] taPositions = objectMapper.readValue(responseBody, TAPosition[].class);
+                    List<TAPosition> taPositionList = Arrays.asList(taPositions);
+                    for (TAPosition position: taPositionList) {
+                        System.out.println(position.getTitle());
+                    }
+                    return ok(views.html.login.render("hello"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).toCompletableFuture().join();
+        } else {
+            return ok(views.html.login.render(null));
+        }
     }
+
 
     /**
      * Index page
@@ -42,7 +75,39 @@ public class HomeController extends Controller {
 
     public Result addPosition(){ return ok(views.html.TAForm.render(null)); }
 
-    public Result newApplication() {return ok(views.html.TAForm.render(null));}
+    public Result newApplication() {
+        //get username from session
+        //get user information from ta application model
+        //open form
+        Http.Context ctx = Http.Context.current();
+        String username = ctx.session().get("username");
+        System.out.println("Username " + username);
+        User user = new User();
+
+        TAApplication app = new TAApplication();
+        CompletionStage<WSResponse> response = app.getUserInfo(username);
+        return response.thenApply(r -> {
+            String responseBody = r.getBody();
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                System.out.println("In try");
+                JsonNode jsonNode = objectMapper.readTree(responseBody);
+                user.setFirstname(jsonNode.get("firstname").asText());
+                user.setLastname(jsonNode.get("lastname").asText());
+                user.setPhoneNumber(jsonNode.get("phonenumber").asText());
+                user.setEmail(jsonNode.get("email").asText());
+                user.setDegreePlan(jsonNode.get("degreePlan").asText());
+                user.setStartSem(jsonNode.get("startSem").asText());
+                user.setEndSem(jsonNode.get("endSem").asText());
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            //try returning the data and making this another function?
+            System.out.println("Firstname" + user.getFirstname());
+            return ok(views.html.TAApplication.render(user));
+        }).toCompletableFuture().join();
+    }
     public CompletionStage<Result> loginHandler() {
 
         Form<User> loginForm = formFactory.form(User.class).bindFromRequest();
@@ -57,7 +122,7 @@ public class HomeController extends Controller {
                         // add username to session
                         session("username",loginForm.get().getUsername());   // store username in session for your project
                         // redirect to index page, to display all categories
-                        return ok(views.html.index.render("Welcome!!! " + loginForm.get().getUsername()));
+                        return ok(views.html.index.render("Hello " + loginForm.get().getUsername()));
                     } else {
                         System.out.println("response null");
                         String authorizeMessage = "Incorrect Username or Password ";
@@ -96,12 +161,31 @@ public class HomeController extends Controller {
                     if (r.getStatus() == 200 && r.asJson() != null) {
                         System.out.println("success");
                         System.out.println(r.asJson());
-                        return ok(index.render(""));
+                        return ok(index.render("Hello"));
                     } else {
                         System.out.println("response null");
                         return badRequest(views.html.TAForm.render("Position already exists"));
                     }
                 }, ec.current());
     };
+
+    public CompletionStage<Result> newApplicationHandler() {
+        Form<TAApplication> TAApplicationForm = formFactory.form(TAApplication.class).bindFromRequest();
+        if (TAApplicationForm.hasErrors()){
+            return (CompletionStage<Result>) badRequest(views.html.TAApplication.render(null));
+        }
+        return TAApplicationForm.get().submitApplication()
+                .thenApplyAsync((WSResponse r) -> {
+                    if (r.getStatus() == 200 && r.asJson() != null) {
+                        System.out.println("success");
+                        System.out.println(r.asJson());
+                        return ok(views.html.index.render(""));
+                    } else {
+                        System.out.println("response null");
+                        return badRequest(views.html.TAApplication.render(null));
+                    }
+                }, ec.current());
+    };
+
 
 }

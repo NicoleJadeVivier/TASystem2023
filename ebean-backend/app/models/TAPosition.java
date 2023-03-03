@@ -28,4 +28,8 @@ public class TAPosition extends Model {
                 .eq("title", title)
                 .findUnique();
     }
+
+    public static List<TAPosition> getAllPositions() {
+        return TAPosition.find.query().findList();
+    }
 }

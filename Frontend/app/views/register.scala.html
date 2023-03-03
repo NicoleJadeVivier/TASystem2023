@@ -16,6 +16,42 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 
         <script src="https://unpkg.com/leaflet@@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+        <script>
+                $(document).ready(function() {
+                    $('.student-checkbox').click(function() {
+                        if ($(this).prop('checked')) {
+                            $('[id="student-info"]').show();
+                        } else {
+                            $('[id="student-info"]').hide();
+                        }
+                    });
+                });
+        </script>
+        <script>
+                $(document).ready(function() {
+                    $('.faculty-checkbox').click(function() {
+                        if ($(this).prop('checked')) {
+                            $('[id="faculty-info"]').show();
+                        } else {
+                            $('[id="faculty-info"]').hide();
+                        }
+                    });
+                });
+        </script>
+        <script>
+            function checkOnClick(el){
+                let checkboxesList = document.getElementsByClassName("a-checkbox");
+                for(let i = 0; i<checkboxesList.length; i++) {
+                    checkboxesList.item(i).checked = false
+                }
+                el.checked = true;
+            }
+        </script>
+        <style>
+                .hidden {
+                    display: none;
+                }
+        </style>
     </head>
     <body>
 
@@ -60,12 +96,47 @@
                                 <label for="lastname">Last Name</label>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <label for="title">Title</label>
+                            <div class="input-field col s12">
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name=title type="radio" value="mr" checked />
+                                        <span>Mr.</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="title" type="radio" value="ms"/>
+                                        <span>Ms.</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="title" type="radio" value="mrs"/>
+                                        <span>Mrs.</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="title" type="radio" value="dr"/>
+                                        <span>Dr.</span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="input-field col s12">
 
                                 <input id="phoneNumber" name="phoneNumber" type="text" class="validate">
                                 <label for="phoneNumber">Phone Number</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+
+                                <input id="fax" name="fax" type="text" class="validate">
+                                <label for="fax">Fax</label>
                             </div>
                         </div>
                         <div class="row">
@@ -105,8 +176,115 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
+                                <label>
+                                    <input type="checkbox" name="status" value="student" class="student-checkbox a-checkbox" onClick="checkOnClick(this);" />
+                                    <span>Student</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label>
+                                    <input type="checkbox" name="status" value="faculty" class="faculty-checkbox a-checkbox" onClick="checkOnClick(this);"/>
+                                    <span>Faculty</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row hidden" id="student-info">
+                            <label for="status">Status</label>
+                            <div class="input-field col s12">
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="degreePlan" type="radio" value="phd"/>
+                                        <span>Ph.D</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="degreePlan" type="radio" value="dese"/>
+                                        <span>D.E.-SE</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="degreePlan" type="radio" value="mscs"/>
+                                        <span>MS-CS</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="degreePlan" type="radio" value="msse"/>
+                                        <span>MS-SE</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="degreePlan" type="radio" value="mscybersecurity"/>
+                                        <span>MS-Cybersecurity</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="degreePlan" type="radio" value="bscs"/>
+                                        <span>BS-CS</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name="degreePlan" type="radio" value="bacs"/>
+                                        <span>BA-CS</span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row hidden" id="student-info" >
+                            <div class="input-field col s12">
+                                <input id="startSem" name=startSem" type="text" class="validate">
+                                <label for="startSem">Starting Semester (semester, year)</label>
+                            </div>
+                        </div>
+                        <div class="row hidden" id="student-info" >
+                            <div class="input-field col s12">
+                                <input id="endSem" name="endSem" type="text" class="validate">
+                                <label for="endSem">Expected Graduation (semester, year)</label>
+                            </div>
+                        </div>
+                        <div class="row hidden" id="faculty-info">
+                            <div class="input-field col s12">
+                                <input type="text" id="faculty-position" name="faculty-position" class="validate" />
+                                <label for="faculty-position">Faculty Position</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
                                 <input id="comments" name="comments" type="text" class="validate" data-length="120">
                                 <label for="comments">Comments</label>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Please Answer the Following Security Questions</p>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="securityQ1"></label>
+                                <p>What was the name of your third grade teacher?</p>
+                                <input id="securityQ1" name="securityQ1" type="text" class="validate" data-length="120">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="securityQ2"></label>
+                                <p>How many siblings do you have?</p>
+                                <input id="securityQ2" name="securityQ2" type="text" class="validate" data-length="120">
+                            </div>
+                        </div>
+                        <div>
+                            <p>Please Enter a Backup Email</p>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="backupEmail">Email</label>
+                                <input id="backupEmail" name="backupEmail" type="text" class="validate" data-length="120">
                             </div>
                         </div>
                         @if(authorizeMessage!= null){

@@ -19,6 +19,19 @@ public class TAApplication extends Model {
 
     @Constraints.Required
     public String firstname;
+    @Constraints.Required
+    public String lastname;
+    @Constraints.Required
+    public String email;
+    @Constraints.Required
+    public String phoneNumber;
+    @Constraints.Required
+    public String degreePlan;
+    @Constraints.Required
+    public String beginningSemester;
+    @Constraints.Required
+    public String gradSemester;
+
 
     public static Find<Long, TAApplication> find = new Find<Long, TAApplication>(){};
 

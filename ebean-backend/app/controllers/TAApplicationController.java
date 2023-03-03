@@ -14,6 +14,13 @@ public class TAApplicationController extends Controller {
         JsonNode req = request().body().asJson();
         String title = req.get("title").asText();
         String firstname = req.get("firstname").asText();
+        String lastname = req.get("lastname").asText();
+        String email = req.get("email").asText();
+        String phoneNumber = req.get("phoneNumber").asText();
+        String degreePlane = req.get("degreePlane").asText();
+        String beginningSemester = req.get("beginningSemester").asText();
+        String gradSemester = req.get("gradSemester").asText();
+
 
         TAApplication p = TAApplication.findByTitle(title);
         ObjectNode result = null;
@@ -23,6 +30,12 @@ public class TAApplicationController extends Controller {
             TAApplication application = new TAApplication();
             application.title=title;
             application.firstname=firstname;
+            application.lastname=lastname;
+            application.email=email;
+            application.phoneNumber=phoneNumber;
+            application.degreePlan=degreePlane;
+            application.beginningSemester=beginningSemester;
+            application.gradSemester=gradSemester;
 
             application.save();
             result.put("body", title);

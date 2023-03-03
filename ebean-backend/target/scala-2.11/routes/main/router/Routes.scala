@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/ebean-backend/conf/routes
-// @DATE:Wed Feb 22 16:36:35 CST 2023
+// @DATE:Thu Mar 02 08:32:50 CST 2023
 
 package router
 
@@ -57,6 +57,8 @@ class Routes(
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """addPosition""", """controllers.TAPositionController.addPosition()"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """newApplication""", """controllers.TAApplicationController.newApplication()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """info""", """controllers.HomeController.info()"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """userData""", """controllers.HomeController.userData(username:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getPositions""", """controllers.HomeController.allPositions()"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -166,6 +168,40 @@ class Routes(
     )
   )
 
+  // @LINE:19
+  private[this] lazy val controllers_HomeController_userData6_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("userData")))
+  )
+  private[this] lazy val controllers_HomeController_userData6_invoker = createInvoker(
+    HomeController_0.userData(fakeValue[String]),
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.HomeController",
+      "userData",
+      Seq(classOf[String]),
+      "GET",
+      """""",
+      this.prefix + """userData"""
+    )
+  )
+
+  // @LINE:20
+  private[this] lazy val controllers_HomeController_allPositions7_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getPositions")))
+  )
+  private[this] lazy val controllers_HomeController_allPositions7_invoker = createInvoker(
+    HomeController_0.allPositions(),
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.HomeController",
+      "allPositions",
+      Nil,
+      "GET",
+      """""",
+      this.prefix + """getPositions"""
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -203,6 +239,18 @@ class Routes(
     case controllers_HomeController_info5_route(params) =>
       call { 
         controllers_HomeController_info5_invoker.call(HomeController_0.info())
+      }
+  
+    // @LINE:19
+    case controllers_HomeController_userData6_route(params) =>
+      call(params.fromQuery[String]("username", None)) { (username) =>
+        controllers_HomeController_userData6_invoker.call(HomeController_0.userData(username))
+      }
+  
+    // @LINE:20
+    case controllers_HomeController_allPositions7_route(params) =>
+      call { 
+        controllers_HomeController_allPositions7_invoker.call(HomeController_0.allPositions())
       }
   }
 }
