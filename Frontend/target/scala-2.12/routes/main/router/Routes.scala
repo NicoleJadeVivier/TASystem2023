@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/conf/routes
-// @DATE:Wed Feb 22 21:55:18 CST 2023
+// @DATE:Sun Mar 05 08:11:44 CST 2023
 
 package router
 
@@ -48,6 +48,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """addPosition""", """controllers.HomeController.addPosition()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """postTA""", """controllers.HomeController.newPositionHandler()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """newApplication""", """controllers.HomeController.newApplication()"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """newSpecificApplication/""" + "$" + """title<[^/]+>""", """controllers.HomeController.newSpecificApplication(title:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """postApplication""", """controllers.HomeController.newApplicationHandler()"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
@@ -201,10 +202,28 @@ class Routes(
   )
 
   // @LINE:23
-  private[this] lazy val controllers_HomeController_newApplicationHandler8_route = Route("GET",
+  private[this] lazy val controllers_HomeController_newSpecificApplication8_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("newSpecificApplication/"), DynamicPart("title", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_HomeController_newSpecificApplication8_invoker = createInvoker(
+    HomeController_1.newSpecificApplication(fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.HomeController",
+      "newSpecificApplication",
+      Seq(classOf[String]),
+      "GET",
+      this.prefix + """newSpecificApplication/""" + "$" + """title<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:25
+  private[this] lazy val controllers_HomeController_newApplicationHandler9_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("postApplication")))
   )
-  private[this] lazy val controllers_HomeController_newApplicationHandler8_invoker = createInvoker(
+  private[this] lazy val controllers_HomeController_newApplicationHandler9_invoker = createInvoker(
     HomeController_1.newApplicationHandler(),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -270,9 +289,15 @@ class Routes(
       }
   
     // @LINE:23
-    case controllers_HomeController_newApplicationHandler8_route(params@_) =>
+    case controllers_HomeController_newSpecificApplication8_route(params@_) =>
+      call(params.fromPath[String]("title", None)) { (title) =>
+        controllers_HomeController_newSpecificApplication8_invoker.call(HomeController_1.newSpecificApplication(title))
+      }
+  
+    // @LINE:25
+    case controllers_HomeController_newApplicationHandler9_route(params@_) =>
       call { 
-        controllers_HomeController_newApplicationHandler8_invoker.call(HomeController_1.newApplicationHandler())
+        controllers_HomeController_newApplicationHandler9_invoker.call(HomeController_1.newApplicationHandler())
       }
   }
 }

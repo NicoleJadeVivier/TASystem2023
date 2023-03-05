@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/conf/routes
-// @DATE:Wed Feb 22 21:55:18 CST 2023
+// @DATE:Sun Mar 05 08:11:44 CST 2023
 
 import play.api.mvc.Call
 
@@ -24,6 +24,12 @@ package controllers {
       Call("GET", _prefix + { _defaultPrefix } + "addPosition")
     }
   
+    // @LINE:23
+    def newSpecificApplication(title:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "newSpecificApplication/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("title", title)))
+    }
+  
     // @LINE:10
     def signup(): Call = {
       
@@ -42,7 +48,7 @@ package controllers {
       Call("GET", _prefix + { _defaultPrefix } + "register")
     }
   
-    // @LINE:23
+    // @LINE:25
     def newApplicationHandler(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "postApplication")

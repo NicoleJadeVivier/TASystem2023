@@ -20,6 +20,8 @@ GET     /postTA                     controllers.HomeController.newPositionHandle
 
 GET     /newApplication             controllers.HomeController.newApplication()
 
+GET /newSpecificApplication/:title    controllers.HomeController.newSpecificApplication(title: String)
+
 GET     /postApplication            controllers.HomeController.newApplicationHandler()
 
 

@@ -39,28 +39,30 @@ public class HomeController extends Controller {
     /**
      * Index page
      */
+    public void fillPositions() {
+        TAPosition taPosition = new TAPosition();
+        CompletionStage<WSResponse> response = taPosition.getTAPositions();
+        response.thenApply(r -> {
+            String responseBody = r.getBody();
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                TAPosition[] taPositions = objectMapper.readValue(responseBody, TAPosition[].class);
+                taPositionList = Arrays.asList(taPositions);
+                return null;
+            } catch (IOException e){
+                throw new RuntimeException(e);
+            }
+        }).toCompletableFuture().join();
+    }
     public Result index() {
         Http.Context ctx = Http.Context.current();
         String username = ctx.session().get("username");
         System.out.println(username);
-        TAPosition taPosition = new TAPosition();
-        CompletionStage<WSResponse> response = taPosition.getTAPositions();
 
         if (username != null) {
-            return response.thenApply(r -> {
-                String responseBody = r.getBody();
-                ObjectMapper objectMapper = new ObjectMapper();
-                try {
-                    TAPosition[] taPositions = objectMapper.readValue(responseBody, TAPosition[].class);
-                    taPositionList = Arrays.asList(taPositions);
-                    for (TAPosition position: taPositionList) {
-                        System.out.println(position.getTitle());
-                    }
-                    return ok(views.html.index.render(username, taPositionList));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }).toCompletableFuture().join();
+            fillPositions();
+            return ok(views.html.index.render(username, taPositionList));
+
         } else {
             return ok(views.html.login.render(null));
         }
@@ -76,6 +78,39 @@ public class HomeController extends Controller {
 
     public Result addPosition(){ return ok(views.html.TAForm.render(null)); }
 
+    public Result newSpecificApplication(String positionTitle) {
+        //get username from session
+        //get user information from ta application model
+        //open form
+        Http.Context ctx = Http.Context.current();
+        String username = ctx.session().get("username");
+        System.out.println("Username " + username);
+        User user = new User();
+
+        TAApplication app = new TAApplication();
+        CompletionStage<WSResponse> response = app.getUserInfo(username);
+        return response.thenApply(r -> {
+            String responseBody = r.getBody();
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                System.out.println("In try");
+                JsonNode jsonNode = objectMapper.readTree(responseBody);
+                user.setFirstname(jsonNode.get("firstname").asText());
+                user.setLastname(jsonNode.get("lastname").asText());
+                user.setPhoneNumber(jsonNode.get("phonenumber").asText());
+                user.setEmail(jsonNode.get("email").asText());
+                user.setDegreePlan(jsonNode.get("degreePlan").asText());
+                user.setStartSem(jsonNode.get("startSem").asText());
+                user.setEndSem(jsonNode.get("endSem").asText());
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            //try returning the data and making this another function?
+            System.out.println("Firstname" + user.getFirstname());
+            return ok(views.html.TAApplicationSpecific.render(user, positionTitle));
+        }).toCompletableFuture().join();
+    }
     public Result newApplication() {
         //get username from session
         //get user information from ta application model
@@ -123,6 +158,7 @@ public class HomeController extends Controller {
                         // add username to session
                         session("username",loginForm.get().getUsername());   // store username in session for your project
                         // redirect to index page, to display all categories
+                        fillPositions();
                         return ok(views.html.index.render(loginForm.get().getUsername(), taPositionList));
                     } else {
                         System.out.println("response null");
@@ -166,6 +202,7 @@ public class HomeController extends Controller {
                         System.out.println(r.asJson());
                         Http.Context ctx = Http.Context.current();
                         String username = ctx.session().get("username");
+                        fillPositions();
                         return ok(index.render(username, taPositionList));
                     } else {
                         System.out.println("response null");
@@ -186,6 +223,7 @@ public class HomeController extends Controller {
                         System.out.println(r.asJson());
                         Http.Context ctx = Http.Context.current();
                         String username = ctx.session().get("username");
+                        fillPositions();
                         return ok(views.html.index.render(username, taPositionList));
                     } else {
                         System.out.println("response null");

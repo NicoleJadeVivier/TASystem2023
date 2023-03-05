@@ -11,6 +11,7 @@
             }
             .outer-div {
                 display: flex;
+                flex-wrap: wrap;
             }
 
             .width {
@@ -35,7 +36,7 @@
                             <p>@pos.getDescription</p>
                         </div>
                         <div class="card-action">
-                            <a class="waves-effect waves-light btn">Apply</a>
+                            <a href="@routes.HomeController.newSpecificApplication(pos.getTitle)" class="waves-effect waves-light btn">Apply</a>
                         </div>
                     </div>
                 }
