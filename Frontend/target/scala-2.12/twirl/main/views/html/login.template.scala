@@ -50,8 +50,8 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
 
         <header class="topbar">
             <h1 class="focused" style="font-size: 37px;
-                color: #57a957">
-                <strong>Play Setup Demo</strong>
+                color: #10ACE2">
+                <strong>Login</strong>
             </h1>
         </header>
 
@@ -76,7 +76,7 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
                             </div>
                         </div>
                         """),_display_(/*47.26*/if(authorizeMessage!= null)/*47.53*/{_display_(Seq[Any](format.raw/*47.54*/("""
-                            """),format.raw/*48.29*/("""<div class="alert alert-primary" role="alert">
+                            """),format.raw/*48.29*/("""<div class="alert alert-primary" role="alert" style="font-size: 13px; color: #FF0000">
                             """),_display_(/*49.30*/authorizeMessage),format.raw/*49.46*/("""
                             """),format.raw/*50.29*/("""</div>
                             <br>
@@ -107,10 +107,10 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
 
               /*
                   -- GENERATED --
-                  DATE: 2023-01-29T21:17:55.393
+                  DATE: 2023-03-04T20:03:18.069
                   SOURCE: C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/app/views/login.scala.html
-                  HASH: 35dca9e6949486fa9ac000f0cb94ff87b88db485
-                  MATRIX: 948->1|1068->28|2656->1591|2671->1597|2722->1627|3477->2355|3513->2382|3552->2383|3609->2412|3712->2488|3749->2504|3806->2533|3902->2598|3955->2623|4183->2824|4198->2830|4243->2854
+                  HASH: ad7b90fc78a0324e1b61caae8acdbe13f4bbbb75
+                  MATRIX: 948->1|1068->28|2646->1581|2661->1587|2712->1617|3467->2345|3503->2372|3542->2373|3599->2402|3742->2518|3779->2534|3836->2563|3932->2628|3985->2653|4213->2854|4228->2860|4273->2884
                   LINES: 28->1|33->2|62->31|62->31|62->31|78->47|78->47|78->47|79->48|80->49|80->49|81->50|83->52|84->53|87->56|87->56|87->56
                   -- GENERATED --
               */

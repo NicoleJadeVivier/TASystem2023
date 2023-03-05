@@ -30,6 +30,7 @@ public class HomeController extends Controller {
 
     private FormFactory formFactory;
 
+    public List<TAPosition> taPositionList;
     @Inject
     public HomeController(FormFactory formFactory) {
         this.formFactory = formFactory;
@@ -51,11 +52,11 @@ public class HomeController extends Controller {
                 ObjectMapper objectMapper = new ObjectMapper();
                 try {
                     TAPosition[] taPositions = objectMapper.readValue(responseBody, TAPosition[].class);
-                    List<TAPosition> taPositionList = Arrays.asList(taPositions);
+                    taPositionList = Arrays.asList(taPositions);
                     for (TAPosition position: taPositionList) {
                         System.out.println(position.getTitle());
                     }
-                    return ok(views.html.login.render("hello"));
+                    return ok(views.html.index.render(username, taPositionList));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -122,7 +123,7 @@ public class HomeController extends Controller {
                         // add username to session
                         session("username",loginForm.get().getUsername());   // store username in session for your project
                         // redirect to index page, to display all categories
-                        return ok(views.html.index.render("Hello " + loginForm.get().getUsername()));
+                        return ok(views.html.index.render(loginForm.get().getUsername(), taPositionList));
                     } else {
                         System.out.println("response null");
                         String authorizeMessage = "Incorrect Username or Password ";
@@ -143,6 +144,8 @@ public class HomeController extends Controller {
                         System.out.println("success");
                         System.out.println(r.asJson());
                         return ok(login.render(""));
+                    } else if(registrationForm.get().getUsername().isEmpty()) {
+                        return badRequest(views.html.register.render("Please fill in required fields"));
                     } else {
                         System.out.println("response null");
                         return badRequest(views.html.register.render("Username already exists"));
@@ -161,7 +164,9 @@ public class HomeController extends Controller {
                     if (r.getStatus() == 200 && r.asJson() != null) {
                         System.out.println("success");
                         System.out.println(r.asJson());
-                        return ok(index.render("Hello"));
+                        Http.Context ctx = Http.Context.current();
+                        String username = ctx.session().get("username");
+                        return ok(index.render(username, taPositionList));
                     } else {
                         System.out.println("response null");
                         return badRequest(views.html.TAForm.render("Position already exists"));
@@ -179,7 +184,9 @@ public class HomeController extends Controller {
                     if (r.getStatus() == 200 && r.asJson() != null) {
                         System.out.println("success");
                         System.out.println(r.asJson());
-                        return ok(views.html.index.render(""));
+                        Http.Context ctx = Http.Context.current();
+                        String username = ctx.session().get("username");
+                        return ok(views.html.index.render(username, taPositionList));
                     } else {
                         System.out.println("response null");
                         return badRequest(views.html.TAApplication.render(null));

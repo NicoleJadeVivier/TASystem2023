@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Play Setup Demo</title>
+        <title>Register</title>
         <link rel="stylesheet" href="register.css"/>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -14,7 +14,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://unpkg.com/leaflet@@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
         <script>
                 $(document).ready(function() {
@@ -52,19 +52,34 @@
                     display: none;
                 }
         </style>
+        <style>
+            .center {
+                text-align: center;
+            }
+
+            .cancel-form {
+                text-align: right;
+                padding-top: 0.5rem;
+            }
+        </style>
     </head>
     <body>
 
-        <header class="topbar">
+        <header class="topbar center">
             <h1 class="focused" style="font-size: 37px;
-                color: #57a957">
-                <strong>Play Setup Demo</strong>
+                color: #10ACE2">
+                <strong>Register</strong>
             </h1>
         </header>
 
 
         <div class="row">
             <div class="card col s4 offset-s4 ">
+                <div class="cancel-form">
+                    <a href="@routes.HomeController.loginHandler()">
+                        <i class="material-icons">close</i>
+                    </a>
+                </div>
                 <div class="card-panel">
                     <form action="@routes.HomeController.signupHandler()" method="GET">
 
