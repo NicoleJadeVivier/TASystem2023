@@ -3,6 +3,13 @@
 
 # --- !Ups
 
+create table course (
+  id                            bigint auto_increment not null,
+  title                         varchar(255),
+  name                          varchar(255),
+  constraint pk_course primary key (id)
+);
+
 create table taapplication (
   id                            bigint auto_increment not null,
   title                         varchar(255),
@@ -13,6 +20,8 @@ create table taapplication (
   degree_plan                   varchar(255),
   beginning_semester            varchar(255),
   grad_semester                 varchar(255),
+  preference1                   varchar(255),
+  preference2                   varchar(255),
   constraint pk_taapplication primary key (id)
 );
 
@@ -51,6 +60,8 @@ create table user (
 
 
 # --- !Downs
+
+drop table if exists course;
 
 drop table if exists taapplication;
 

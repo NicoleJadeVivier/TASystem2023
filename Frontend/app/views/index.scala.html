@@ -5,6 +5,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <style>
             .body {
                 margin-left: 2rem;
@@ -18,16 +19,35 @@
                 width: 20rem;
                 margin-right: 2rem;
             }
+
+            .spacer {
+                flex-grow: 1;
+            }
+
+            .profile {
+                color: #10ACE2;
+            }
         </style>
     </head>
     <body class="body">
 
         <header class="topbar">
-            <h1 class="focused" style="font-size: 37px;
-                color: #10ACE2">
-                <Strong>@authorizeMessage</Strong>
-                <strong> Dashboard</strong>
-            </h1>
+            <div class="outer-div">
+                <div>
+                    <h1 class="focused" style="font-size: 37px;
+                        color: #10ACE2">
+                        <Strong>@authorizeMessage</Strong>
+                        <strong> Dashboard</strong>
+                    </h1>
+                </div>
+                <div class="spacer"></div>
+                <div>
+                    <a href="@routes.UserController.userEdit()">
+                        <i class="medium material-icons profile">account_box</i>
+                    </a>
+                </div>
+            </div>
+        </header>
             <div class="outer-div">
                 @for(pos <- positions) {
                     <div class="s12 m7 card blue-grey darken-1 width">
@@ -44,10 +64,6 @@
             <a href="@routes.HomeController.addPosition()">Post New Position</a>
             <br/>
             <a href="@routes.HomeController.newApplication()">Create New Application</a>
-
-
-
-        </header>
 
     </body>
 </html>

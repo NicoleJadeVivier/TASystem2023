@@ -1,4 +1,5 @@
-@(user: User)
+@import java.util.List
+@(user: User, courses: List[Course])
 <!DOCTYPE html>
 <html>
     <head>
@@ -102,8 +103,32 @@
                                 <label for="gradSemester">Expected Graduating Semester</label>
                             </div>
                         </div>
-
-
+                        <div class="row">
+                            <label for="preference1">Top preference</label>
+                            <div class="input-field col s12">
+                                @for(course <- courses) {
+                                    <p>
+                                        <label>
+                                            <input class="with-gap" name=preference1 type="radio" value=preference1" checked />
+                                            <span>@course.getTitle, @course.getName</span>
+                                        </label>
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="preference2">Second preference</label>
+                            <div class="input-field col s12">
+                            @for(course <- courses) {
+                                <p>
+                                    <label>
+                                        <input class="with-gap" name=preference2 type="radio" value="preference2" checked />
+                                        <span>@course.getTitle, @course.getName</span>
+                                    </label>
+                                </p>
+                            }
+                            </div>
+                        </div>
                         <div class="row">
                             <button id="api-search-button" class="btn col s4 offset-s4" type="submit">Submit</button>
                         </div>

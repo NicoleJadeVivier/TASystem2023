@@ -47,6 +47,9 @@ public class TAApplication {
     public void setTopPreferenceAll(String topPreferenceAll) {this.topPreferenceAll = topPreferenceAll;}
     public String getTopPreferenceAll() {return this.topPreferenceAll;}
 
+    public void setSecondPreference(String secondPreference) { this.secondPreference = secondPreference; }
+    public String getSecondPreference() { return this.secondPreference; }
+
     public  CompletionStage<WSResponse> submitApplication() {
         WSClient ws = play.test.WSTestClient.newClient(9005);
         // send this. user
@@ -59,6 +62,8 @@ public class TAApplication {
         res.put("degreePlane", this.degreePlan);
         res.put("beginningSemester", this.beginningSemester);
         res.put("gradSemester", this.gradSemester);
+        res.put("preference1", this.topPreferenceAll);
+        res.put("preference2", this.secondPreference);
 
 
 
@@ -71,6 +76,8 @@ public class TAApplication {
         System.out.println(degreePlan);
         System.out.println(beginningSemester);
         System.out.println(gradSemester);
+        System.out.println(topPreferenceAll);
+        System.out.println(secondPreference);
 
         WSRequest request = ws.url("http://localhost:9005/newApplication");
         return request.addHeader("Content-Type", "application/json")

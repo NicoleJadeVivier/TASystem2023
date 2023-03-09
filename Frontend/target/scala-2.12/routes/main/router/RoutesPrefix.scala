@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/conf/routes
-// @DATE:Sun Mar 05 08:11:44 CST 2023
+// @DATE:Thu Mar 09 15:52:44 CST 2023
 
 
 package router {

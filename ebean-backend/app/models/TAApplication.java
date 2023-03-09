@@ -32,6 +32,10 @@ public class TAApplication extends Model {
     @Constraints.Required
     public String gradSemester;
 
+    @Constraints.Required
+    public String preference1;
+    public String preference2;
+
 
     public static Find<Long, TAApplication> find = new Find<Long, TAApplication>(){};
 

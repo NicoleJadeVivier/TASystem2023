@@ -20,6 +20,8 @@ public class TAApplicationController extends Controller {
         String degreePlane = req.get("degreePlane").asText();
         String beginningSemester = req.get("beginningSemester").asText();
         String gradSemester = req.get("gradSemester").asText();
+        String preference1 = req.get("preference1").asText();
+        String preference2 = req.get("preference2").asText();
 
 
         TAApplication p = TAApplication.findByTitle(title);
@@ -36,6 +38,8 @@ public class TAApplicationController extends Controller {
             application.degreePlan=degreePlane;
             application.beginningSemester=beginningSemester;
             application.gradSemester=gradSemester;
+            application.preference1=preference1;
+            application.preference2=preference2;
 
             application.save();
             result.put("body", title);

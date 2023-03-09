@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
+import models.Course;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -31,6 +32,8 @@ public class HomeController extends Controller {
     private FormFactory formFactory;
 
     public List<TAPosition> taPositionList;
+    public CourseController courseController;
+    public List<Course> courseList;
     @Inject
     public HomeController(FormFactory formFactory) {
         this.formFactory = formFactory;
@@ -59,6 +62,10 @@ public class HomeController extends Controller {
         String username = ctx.session().get("username");
         System.out.println(username);
 
+        courseController = new CourseController();
+        courseController.fillCourses();
+        courseList = courseController.getCourses();
+
         if (username != null) {
             fillPositions();
             return ok(views.html.index.render(username, taPositionList));
@@ -73,7 +80,10 @@ public class HomeController extends Controller {
      * Index page
      */
     public Result signup() {
-        return ok(views.html.register.render(null));
+        courseController = new CourseController();
+        courseController.fillCourses();
+        courseList = courseController.getCourses();
+        return ok(views.html.register.render(null, courseList));
     }
 
     public Result addPosition(){ return ok(views.html.TAForm.render(null)); }
@@ -136,12 +146,14 @@ public class HomeController extends Controller {
                 user.setStartSem(jsonNode.get("startSem").asText());
                 user.setEndSem(jsonNode.get("endSem").asText());
 
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             //try returning the data and making this another function?
             System.out.println("Firstname" + user.getFirstname());
-            return ok(views.html.TAApplication.render(user));
+            System.out.print("Reached here");
+            return ok(views.html.TAApplication.render(user, courseList));
         }).toCompletableFuture().join();
     }
     public CompletionStage<Result> loginHandler() {
@@ -172,7 +184,7 @@ public class HomeController extends Controller {
 
         Form<User> registrationForm = formFactory.form(User.class).bindFromRequest();
         if (registrationForm.hasErrors()){
-            return (CompletionStage<Result>) badRequest(views.html.register.render(null));
+            return (CompletionStage<Result>) badRequest(views.html.register.render(null, courseList));
         }
         return registrationForm.get().registerUser()
                 .thenApplyAsync((WSResponse r) -> {
@@ -181,10 +193,10 @@ public class HomeController extends Controller {
                         System.out.println(r.asJson());
                         return ok(login.render(""));
                     } else if(registrationForm.get().getUsername().isEmpty()) {
-                        return badRequest(views.html.register.render("Please fill in required fields"));
+                        return badRequest(views.html.register.render("Please fill in required fields", courseList));
                     } else {
                         System.out.println("response null");
-                        return badRequest(views.html.register.render("Username already exists"));
+                        return badRequest(views.html.register.render("Username already exists", courseList));
                     }
                 }, ec.current());
 
@@ -214,7 +226,7 @@ public class HomeController extends Controller {
     public CompletionStage<Result> newApplicationHandler() {
         Form<TAApplication> TAApplicationForm = formFactory.form(TAApplication.class).bindFromRequest();
         if (TAApplicationForm.hasErrors()){
-            return (CompletionStage<Result>) badRequest(views.html.TAApplication.render(null));
+            return (CompletionStage<Result>) badRequest(views.html.TAApplication.render(null, courseList));
         }
         return TAApplicationForm.get().submitApplication()
                 .thenApplyAsync((WSResponse r) -> {
@@ -227,7 +239,7 @@ public class HomeController extends Controller {
                         return ok(views.html.index.render(username, taPositionList));
                     } else {
                         System.out.println("response null");
-                        return badRequest(views.html.TAApplication.render(null));
+                        return badRequest(views.html.TAApplication.render(null, courseList));
                     }
                 }, ec.current());
     };

@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/conf/routes
-// @DATE:Sun Mar 05 08:11:44 CST 2023
+// @DATE:Thu Mar 09 15:52:44 CST 2023
 
 package router
 
@@ -18,6 +18,8 @@ class Routes(
   HomeController_1: controllers.HomeController,
   // @LINE:15
   Assets_0: controllers.Assets,
+  // @LINE:27
+  UserController_2: controllers.UserController,
   val prefix: String
 ) extends GeneratedRouter {
 
@@ -26,13 +28,15 @@ class Routes(
     // @LINE:7
     HomeController_1: controllers.HomeController,
     // @LINE:15
-    Assets_0: controllers.Assets
-  ) = this(errorHandler, HomeController_1, Assets_0, "/")
+    Assets_0: controllers.Assets,
+    // @LINE:27
+    UserController_2: controllers.UserController
+  ) = this(errorHandler, HomeController_1, Assets_0, UserController_2, "/")
 
   def withPrefix(addPrefix: String): Routes = {
     val prefix = play.api.routing.Router.concatPrefix(addPrefix, this.prefix)
     router.RoutesPrefix.setPrefix(prefix)
-    new Routes(errorHandler, HomeController_1, Assets_0, prefix)
+    new Routes(errorHandler, HomeController_1, Assets_0, UserController_2, prefix)
   }
 
   private[this] val defaultPrefix: String = {
@@ -50,6 +54,8 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """newApplication""", """controllers.HomeController.newApplication()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """newSpecificApplication/""" + "$" + """title<[^/]+>""", """controllers.HomeController.newSpecificApplication(title:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """postApplication""", """controllers.HomeController.newApplicationHandler()"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """userEdit""", """controllers.UserController.userEdit()"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """updateUser""", """controllers.UserController.editUserHandler()"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -237,6 +243,42 @@ class Routes(
     )
   )
 
+  // @LINE:27
+  private[this] lazy val controllers_UserController_userEdit10_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("userEdit")))
+  )
+  private[this] lazy val controllers_UserController_userEdit10_invoker = createInvoker(
+    UserController_2.userEdit(),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.UserController",
+      "userEdit",
+      Nil,
+      "GET",
+      this.prefix + """userEdit""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:29
+  private[this] lazy val controllers_UserController_editUserHandler11_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("updateUser")))
+  )
+  private[this] lazy val controllers_UserController_editUserHandler11_invoker = createInvoker(
+    UserController_2.editUserHandler(),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.UserController",
+      "editUserHandler",
+      Nil,
+      "GET",
+      this.prefix + """updateUser""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -298,6 +340,18 @@ class Routes(
     case controllers_HomeController_newApplicationHandler9_route(params@_) =>
       call { 
         controllers_HomeController_newApplicationHandler9_invoker.call(HomeController_1.newApplicationHandler())
+      }
+  
+    // @LINE:27
+    case controllers_UserController_userEdit10_route(params@_) =>
+      call { 
+        controllers_UserController_userEdit10_invoker.call(UserController_2.userEdit())
+      }
+  
+    // @LINE:29
+    case controllers_UserController_editUserHandler11_route(params@_) =>
+      call { 
+        controllers_UserController_editUserHandler11_invoker.call(UserController_2.editUserHandler())
       }
   }
 }

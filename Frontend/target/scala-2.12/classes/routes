@@ -24,4 +24,8 @@ GET /newSpecificApplication/:title    controllers.HomeController.newSpecificAppl
 
 GET     /postApplication            controllers.HomeController.newApplicationHandler()
 
+GET     /userEdit                   controllers.UserController.userEdit()
+
+GET     /updateUser                 controllers.UserController.editUserHandler()
+
 

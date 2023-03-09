@@ -21,16 +21,17 @@ import play.api.data.Field
 import play.mvc.Http.Context.Implicit._
 import play.data._
 import play.core.j.PlayFormsMagicForJava._
+/*1.2*/import java.util.List
 
-object register extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[String,play.twirl.api.HtmlFormat.Appendable] {
+object register extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[String,List[Course],play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
-  def apply/*1.2*/(authorizeMessage: String):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*2.2*/(authorizeMessage: String, courses: List[Course]):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
+Seq[Any](format.raw/*3.1*/("""<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -48,51 +49,51 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
         <script>
-                $(document).ready(function() """),format.raw/*20.46*/("""{"""),format.raw/*20.47*/("""
-                    """),format.raw/*21.21*/("""$('.student-checkbox').click(function() """),format.raw/*21.61*/("""{"""),format.raw/*21.62*/("""
-                        """),format.raw/*22.25*/("""if ($(this).prop('checked')) """),format.raw/*22.54*/("""{"""),format.raw/*22.55*/("""
-                            """),format.raw/*23.29*/("""$('[id="student-info"]').show();
-                        """),format.raw/*24.25*/("""}"""),format.raw/*24.26*/(""" """),format.raw/*24.27*/("""else """),format.raw/*24.32*/("""{"""),format.raw/*24.33*/("""
-                            """),format.raw/*25.29*/("""$('[id="student-info"]').hide();
-                        """),format.raw/*26.25*/("""}"""),format.raw/*26.26*/("""
-                    """),format.raw/*27.21*/("""}"""),format.raw/*27.22*/(""");
-                """),format.raw/*28.17*/("""}"""),format.raw/*28.18*/(""");
+                $(document).ready(function() """),format.raw/*21.46*/("""{"""),format.raw/*21.47*/("""
+                    """),format.raw/*22.21*/("""$('.student-checkbox').click(function() """),format.raw/*22.61*/("""{"""),format.raw/*22.62*/("""
+                        """),format.raw/*23.25*/("""if ($(this).prop('checked')) """),format.raw/*23.54*/("""{"""),format.raw/*23.55*/("""
+                            """),format.raw/*24.29*/("""$('[id="student-info"]').show();
+                        """),format.raw/*25.25*/("""}"""),format.raw/*25.26*/(""" """),format.raw/*25.27*/("""else """),format.raw/*25.32*/("""{"""),format.raw/*25.33*/("""
+                            """),format.raw/*26.29*/("""$('[id="student-info"]').hide();
+                        """),format.raw/*27.25*/("""}"""),format.raw/*27.26*/("""
+                    """),format.raw/*28.21*/("""}"""),format.raw/*28.22*/(""");
+                """),format.raw/*29.17*/("""}"""),format.raw/*29.18*/(""");
         </script>
         <script>
-                $(document).ready(function() """),format.raw/*31.46*/("""{"""),format.raw/*31.47*/("""
-                    """),format.raw/*32.21*/("""$('.faculty-checkbox').click(function() """),format.raw/*32.61*/("""{"""),format.raw/*32.62*/("""
-                        """),format.raw/*33.25*/("""if ($(this).prop('checked')) """),format.raw/*33.54*/("""{"""),format.raw/*33.55*/("""
-                            """),format.raw/*34.29*/("""$('[id="faculty-info"]').show();
-                        """),format.raw/*35.25*/("""}"""),format.raw/*35.26*/(""" """),format.raw/*35.27*/("""else """),format.raw/*35.32*/("""{"""),format.raw/*35.33*/("""
-                            """),format.raw/*36.29*/("""$('[id="faculty-info"]').hide();
-                        """),format.raw/*37.25*/("""}"""),format.raw/*37.26*/("""
-                    """),format.raw/*38.21*/("""}"""),format.raw/*38.22*/(""");
-                """),format.raw/*39.17*/("""}"""),format.raw/*39.18*/(""");
+                $(document).ready(function() """),format.raw/*32.46*/("""{"""),format.raw/*32.47*/("""
+                    """),format.raw/*33.21*/("""$('.faculty-checkbox').click(function() """),format.raw/*33.61*/("""{"""),format.raw/*33.62*/("""
+                        """),format.raw/*34.25*/("""if ($(this).prop('checked')) """),format.raw/*34.54*/("""{"""),format.raw/*34.55*/("""
+                            """),format.raw/*35.29*/("""$('[id="faculty-info"]').show();
+                        """),format.raw/*36.25*/("""}"""),format.raw/*36.26*/(""" """),format.raw/*36.27*/("""else """),format.raw/*36.32*/("""{"""),format.raw/*36.33*/("""
+                            """),format.raw/*37.29*/("""$('[id="faculty-info"]').hide();
+                        """),format.raw/*38.25*/("""}"""),format.raw/*38.26*/("""
+                    """),format.raw/*39.21*/("""}"""),format.raw/*39.22*/(""");
+                """),format.raw/*40.17*/("""}"""),format.raw/*40.18*/(""");
         </script>
         <script>
-            function checkOnClick(el)"""),format.raw/*42.38*/("""{"""),format.raw/*42.39*/("""
-                """),format.raw/*43.17*/("""let checkboxesList = document.getElementsByClassName("a-checkbox");
-                for(let i = 0; i<checkboxesList.length; i++) """),format.raw/*44.62*/("""{"""),format.raw/*44.63*/("""
-                    """),format.raw/*45.21*/("""checkboxesList.item(i).checked = false
-                """),format.raw/*46.17*/("""}"""),format.raw/*46.18*/("""
-                """),format.raw/*47.17*/("""el.checked = true;
-            """),format.raw/*48.13*/("""}"""),format.raw/*48.14*/("""
-        """),format.raw/*49.9*/("""</script>
+            function checkOnClick(el)"""),format.raw/*43.38*/("""{"""),format.raw/*43.39*/("""
+                """),format.raw/*44.17*/("""let checkboxesList = document.getElementsByClassName("a-checkbox");
+                for(let i = 0; i<checkboxesList.length; i++) """),format.raw/*45.62*/("""{"""),format.raw/*45.63*/("""
+                    """),format.raw/*46.21*/("""checkboxesList.item(i).checked = false
+                """),format.raw/*47.17*/("""}"""),format.raw/*47.18*/("""
+                """),format.raw/*48.17*/("""el.checked = true;
+            """),format.raw/*49.13*/("""}"""),format.raw/*49.14*/("""
+        """),format.raw/*50.9*/("""</script>
         <style>
-                .hidden """),format.raw/*51.25*/("""{"""),format.raw/*51.26*/("""
-                    """),format.raw/*52.21*/("""display: none;
-                """),format.raw/*53.17*/("""}"""),format.raw/*53.18*/("""
-        """),format.raw/*54.9*/("""</style>
+                .hidden """),format.raw/*52.25*/("""{"""),format.raw/*52.26*/("""
+                    """),format.raw/*53.21*/("""display: none;
+                """),format.raw/*54.17*/("""}"""),format.raw/*54.18*/("""
+        """),format.raw/*55.9*/("""</style>
         <style>
-            .center """),format.raw/*56.21*/("""{"""),format.raw/*56.22*/("""
-                """),format.raw/*57.17*/("""text-align: center;
-            """),format.raw/*58.13*/("""}"""),format.raw/*58.14*/("""
+            .center """),format.raw/*57.21*/("""{"""),format.raw/*57.22*/("""
+                """),format.raw/*58.17*/("""text-align: center;
+            """),format.raw/*59.13*/("""}"""),format.raw/*59.14*/("""
 
-            """),format.raw/*60.13*/(""".cancel-form """),format.raw/*60.26*/("""{"""),format.raw/*60.27*/("""
-                """),format.raw/*61.17*/("""text-align: right;
+            """),format.raw/*61.13*/(""".cancel-form """),format.raw/*61.26*/("""{"""),format.raw/*61.27*/("""
+                """),format.raw/*62.17*/("""text-align: right;
                 padding-top: 0.5rem;
-            """),format.raw/*63.13*/("""}"""),format.raw/*63.14*/("""
-        """),format.raw/*64.9*/("""</style>
+            """),format.raw/*64.13*/("""}"""),format.raw/*64.14*/("""
+        """),format.raw/*65.9*/("""</style>
     </head>
     <body>
 
@@ -107,12 +108,12 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
         <div class="row">
             <div class="card col s4 offset-s4 ">
                 <div class="cancel-form">
-                    <a href=""""),_display_(/*79.31*/routes/*79.37*/.HomeController.loginHandler()),format.raw/*79.67*/("""">
+                    <a href=""""),_display_(/*80.31*/routes/*80.37*/.HomeController.loginHandler()),format.raw/*80.67*/("""">
                         <i class="material-icons">close</i>
                     </a>
                 </div>
                 <div class="card-panel">
-                    <form action=""""),_display_(/*84.36*/routes/*84.42*/.HomeController.signupHandler()),format.raw/*84.73*/("""" method="GET">
+                    <form action=""""),_display_(/*85.36*/routes/*85.42*/.HomeController.signupHandler()),format.raw/*85.73*/("""" method="GET">
 
                         <div class="row">
                             <div class="input-field col s12">
@@ -333,14 +334,14 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
                                 <input id="backupEmail" name="backupEmail" type="text" class="validate" data-length="120">
                             </div>
                         </div>
-                        """),_display_(/*305.26*/if(authorizeMessage!= null)/*305.53*/{_display_(Seq[Any](format.raw/*305.54*/("""
-                            """),format.raw/*306.29*/("""<div class="alert alert-primary" role="alert">
-                            """),_display_(/*307.30*/authorizeMessage),format.raw/*307.46*/("""
-                            """),format.raw/*308.29*/("""</div>
+                        """),_display_(/*306.26*/if(authorizeMessage!= null)/*306.53*/{_display_(Seq[Any](format.raw/*306.54*/("""
+                            """),format.raw/*307.29*/("""<div class="alert alert-primary" role="alert">
+                            """),_display_(/*308.30*/authorizeMessage),format.raw/*308.46*/("""
+                            """),format.raw/*309.29*/("""</div>
                             <br>
-                        """)))}),format.raw/*310.26*/("""
+                        """)))}),format.raw/*311.26*/("""
 
-                        """),format.raw/*312.25*/("""<div class="row">
+                        """),format.raw/*313.25*/("""<div class="row">
                             <button id="api-search-button" class="btn col s4 offset-s4" type="submit">Submit</button>
                         </div>
 
@@ -355,9 +356,9 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
     }
   }
 
-  def render(authorizeMessage:String): play.twirl.api.HtmlFormat.Appendable = apply(authorizeMessage)
+  def render(authorizeMessage:String,courses:List[Course]): play.twirl.api.HtmlFormat.Appendable = apply(authorizeMessage,courses)
 
-  def f:((String) => play.twirl.api.HtmlFormat.Appendable) = (authorizeMessage) => apply(authorizeMessage)
+  def f:((String,List[Course]) => play.twirl.api.HtmlFormat.Appendable) = (authorizeMessage,courses) => apply(authorizeMessage,courses)
 
   def ref: this.type = this
 
@@ -366,11 +367,11 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
 
               /*
                   -- GENERATED --
-                  DATE: 2023-03-04T20:16:02.055
+                  DATE: 2023-03-09T15:52:44.744
                   SOURCE: C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/app/views/register.scala.html
-                  HASH: da3290d105fdec06414efef8af10797eafc2bfe0
-                  MATRIX: 951->1|1071->28|2480->1411|2509->1412|2558->1433|2626->1473|2655->1474|2708->1499|2765->1528|2794->1529|2851->1558|2936->1615|2965->1616|2994->1617|3027->1622|3056->1623|3113->1652|3198->1709|3227->1710|3276->1731|3305->1732|3352->1751|3381->1752|3492->1835|3521->1836|3570->1857|3638->1897|3667->1898|3720->1923|3777->1952|3806->1953|3863->1982|3948->2039|3977->2040|4006->2041|4039->2046|4068->2047|4125->2076|4210->2133|4239->2134|4288->2155|4317->2156|4364->2175|4393->2176|4496->2251|4525->2252|4570->2269|4727->2398|4756->2399|4805->2420|4888->2475|4917->2476|4962->2493|5021->2524|5050->2525|5086->2534|5164->2584|5193->2585|5242->2606|5301->2637|5330->2638|5366->2647|5439->2692|5468->2693|5513->2710|5573->2742|5602->2743|5644->2757|5685->2770|5714->2771|5759->2788|5855->2856|5884->2857|5920->2866|6335->3254|6350->3260|6401->3290|6615->3477|6630->3483|6682->3514|18553->15357|18590->15384|18630->15385|18688->15414|18792->15490|18830->15506|18888->15535|18985->15600|19040->15626
-                  LINES: 28->1|33->2|51->20|51->20|52->21|52->21|52->21|53->22|53->22|53->22|54->23|55->24|55->24|55->24|55->24|55->24|56->25|57->26|57->26|58->27|58->27|59->28|59->28|62->31|62->31|63->32|63->32|63->32|64->33|64->33|64->33|65->34|66->35|66->35|66->35|66->35|66->35|67->36|68->37|68->37|69->38|69->38|70->39|70->39|73->42|73->42|74->43|75->44|75->44|76->45|77->46|77->46|78->47|79->48|79->48|80->49|82->51|82->51|83->52|84->53|84->53|85->54|87->56|87->56|88->57|89->58|89->58|91->60|91->60|91->60|92->61|94->63|94->63|95->64|110->79|110->79|110->79|115->84|115->84|115->84|336->305|336->305|336->305|337->306|338->307|338->307|339->308|341->310|343->312
+                  HASH: d87bea9d5a2d789bb4497f44521750be22ef7ea0
+                  MATRIX: 651->1|993->24|1136->74|2545->1457|2574->1458|2623->1479|2691->1519|2720->1520|2773->1545|2830->1574|2859->1575|2916->1604|3001->1661|3030->1662|3059->1663|3092->1668|3121->1669|3178->1698|3263->1755|3292->1756|3341->1777|3370->1778|3417->1797|3446->1798|3557->1881|3586->1882|3635->1903|3703->1943|3732->1944|3785->1969|3842->1998|3871->1999|3928->2028|4013->2085|4042->2086|4071->2087|4104->2092|4133->2093|4190->2122|4275->2179|4304->2180|4353->2201|4382->2202|4429->2221|4458->2222|4561->2297|4590->2298|4635->2315|4792->2444|4821->2445|4870->2466|4953->2521|4982->2522|5027->2539|5086->2570|5115->2571|5151->2580|5229->2630|5258->2631|5307->2652|5366->2683|5395->2684|5431->2693|5504->2738|5533->2739|5578->2756|5638->2788|5667->2789|5709->2803|5750->2816|5779->2817|5824->2834|5920->2902|5949->2903|5985->2912|6400->3300|6415->3306|6466->3336|6680->3523|6695->3529|6747->3560|18618->15403|18655->15430|18695->15431|18753->15460|18857->15536|18895->15552|18953->15581|19050->15646|19105->15672
+                  LINES: 24->1|29->2|34->3|52->21|52->21|53->22|53->22|53->22|54->23|54->23|54->23|55->24|56->25|56->25|56->25|56->25|56->25|57->26|58->27|58->27|59->28|59->28|60->29|60->29|63->32|63->32|64->33|64->33|64->33|65->34|65->34|65->34|66->35|67->36|67->36|67->36|67->36|67->36|68->37|69->38|69->38|70->39|70->39|71->40|71->40|74->43|74->43|75->44|76->45|76->45|77->46|78->47|78->47|79->48|80->49|80->49|81->50|83->52|83->52|84->53|85->54|85->54|86->55|88->57|88->57|89->58|90->59|90->59|92->61|92->61|92->61|93->62|95->64|95->64|96->65|111->80|111->80|111->80|116->85|116->85|116->85|337->306|337->306|337->306|338->307|339->308|339->308|340->309|342->311|344->313
                   -- GENERATED --
               */
           

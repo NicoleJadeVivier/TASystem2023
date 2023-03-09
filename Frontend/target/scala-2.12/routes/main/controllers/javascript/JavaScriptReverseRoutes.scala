@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/conf/routes
-// @DATE:Sun Mar 05 08:11:44 CST 2023
+// @DATE:Thu Mar 09 15:52:44 CST 2023
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -125,6 +125,36 @@ package controllers.javascript {
       """
         function(file1) {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "assets/" + (""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("file", file1)})
+        }
+      """
+    )
+  
+  }
+
+  // @LINE:27
+  class ReverseUserController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:29
+    def editUserHandler: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.UserController.editUserHandler",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "updateUser"})
+        }
+      """
+    )
+  
+    // @LINE:27
+    def userEdit: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.UserController.userEdit",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "userEdit"})
         }
       """
     )

@@ -18,5 +18,6 @@ POST    /newApplication              controllers.TAApplicationController.newAppl
 GET     /info                        controllers.HomeController.info()
 GET     /userData                    controllers.HomeController.userData(username: String)
 GET     /getPositions                controllers.HomeController.allPositions()
-
+GET     /getCourses                  controllers.CourseController.getAllCourses()
+PUT     /updateUser                  controllers.UserController.update()
 

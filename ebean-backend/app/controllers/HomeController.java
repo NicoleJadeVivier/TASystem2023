@@ -9,6 +9,7 @@ import play.libs.Json;
 import play.mvc.*;
 import scala.collection.JavaConverters;
 import scala.collection.Seq;
+import controllers.CourseController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class HomeController extends Controller {
     }
     public Result info() {
         System.out.println("In info");
-        Long id = 2L;
+        Long id = 1L;
         User user = User.find.byId(id);
         List<String> infos = new ArrayList<>();
         infos.add("Username: " + user.username);
@@ -31,6 +32,7 @@ public class HomeController extends Controller {
         infos.add("Firstname: " + user.firstname);
         Seq<String> infoSeq = JavaConverters.asScalaBufferConverter(infos).asScala().toSeq();
         Logger.info("infos" + infoSeq);
+
         return ok(views.html.info.render(infoSeq));
     }
 
@@ -41,6 +43,7 @@ public class HomeController extends Controller {
             return notFound("User does not exist");
         } else {
             ObjectNode result = Json.newObject();
+            result.put("id", user.id);
             result.put("firstname", user.firstname);
             result.put("lastname", user.lastname);
             result.put("email", user.email);
@@ -48,6 +51,12 @@ public class HomeController extends Controller {
             result.put("degreePlan", user.degreePlan);
             result.put("startSem", user.startSem);
             result.put("endSem", user.endSem);
+            result.put("address", user.address);
+            result.put("region", user.region);
+            result.put("city", user.city);
+            result.put("fax", user.fax);
+            result.put("title", user.title);
+            result.put("zipcode", user.zipcode);
             return ok(result);
         }
     }

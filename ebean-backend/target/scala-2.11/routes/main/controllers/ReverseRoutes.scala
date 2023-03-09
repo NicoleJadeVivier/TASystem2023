@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/ebean-backend/conf/routes
-// @DATE:Thu Mar 02 08:32:50 CST 2023
+// @DATE:Thu Mar 09 15:52:50 CST 2023
 
 import play.api.mvc.{ QueryStringBindable, PathBindable, Call, JavascriptLiteral }
 import play.core.routing.{ HandlerDef, ReverseRouteContext, queryString, dynamicString }
@@ -12,6 +12,48 @@ import _root_.play.libs.F
 
 // @LINE:6
 package controllers {
+
+  // @LINE:21
+  class ReverseCourseController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:21
+    def getAllCourses(): Call = {
+      import ReverseRouteContext.empty
+      Call("GET", _prefix + { _defaultPrefix } + "getCourses")
+    }
+  
+  }
+
+  // @LINE:9
+  class ReverseUserController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:22
+    def update(): Call = {
+      import ReverseRouteContext.empty
+      Call("PUT", _prefix + { _defaultPrefix } + "updateUser")
+    }
+  
+    // @LINE:9
+    def authenticate(): Call = {
+      import ReverseRouteContext.empty
+      Call("POST", _prefix + { _defaultPrefix } + "login")
+    }
+  
+    // @LINE:13
+    def registerNew(): Call = {
+      import ReverseRouteContext.empty
+      Call("POST", _prefix + { _defaultPrefix } + "signup")
+    }
+  
+  }
 
   // @LINE:6
   class ReverseHomeController(_prefix: => String) {
@@ -72,27 +114,6 @@ package controllers {
     def newApplication(): Call = {
       import ReverseRouteContext.empty
       Call("POST", _prefix + { _defaultPrefix } + "newApplication")
-    }
-  
-  }
-
-  // @LINE:9
-  class ReverseUserController(_prefix: => String) {
-    def _defaultPrefix: String = {
-      if (_prefix.endsWith("/")) "" else "/"
-    }
-
-  
-    // @LINE:9
-    def authenticate(): Call = {
-      import ReverseRouteContext.empty
-      Call("POST", _prefix + { _defaultPrefix } + "login")
-    }
-  
-    // @LINE:13
-    def registerNew(): Call = {
-      import ReverseRouteContext.empty
-      Call("POST", _prefix + { _defaultPrefix } + "signup")
     }
   
   }

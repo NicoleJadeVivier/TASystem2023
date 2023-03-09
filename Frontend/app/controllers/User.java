@@ -11,6 +11,7 @@ import java.util.concurrent.CompletionStage;
 
 public class User {
 
+    private Long id;
     private String username;
 
     private String password;
@@ -38,7 +39,8 @@ public class User {
 
 
 
-
+    public Long getId () { return this.id; }
+    public void setId (Long id) { this.id = id; }
     public String getUsername() {
         return username;
     }
@@ -157,5 +159,51 @@ public class User {
                 });
     }
 
+    public CompletionStage<WSResponse> getUserInfo(String username) {
+        WSClient ws = play.test.WSTestClient.newClient(9005);
+
+        WSRequest request = ws.url("http://localhost:9005/userData")
+                .setQueryParameter("username", username);
+        return request.get()
+                .thenApply((WSResponse r) -> {
+                    return r;
+                });
+    }
+
+    public  CompletionStage<WSResponse> updateUser() {
+
+        WSClient ws = play.test.WSTestClient.newClient(9005);
+        // send this. user
+        ObjectNode res = Json.newObject();
+        res.put("id", this.id);
+        res.put("username", this.username);
+        res.put("password",this.password);
+        res.put("firstname", this.firstname);
+        res.put("lastname", this.lastname);
+        res.put("title", this.title);
+        res.put("phoneNumber", this.phoneNumber);
+        res.put("fax", this.fax);
+        res.put("email", this.email);
+        res.put("address", this.address);
+        res.put("city", this.city);
+        res.put("region", this.region);
+        res.put("zipcode", this.zipcode);
+        res.put("status", this.status);
+        res.put("degreePlan", this.degreePlan);
+        res.put("beginningSemester", this.startSem);
+        res.put("endSem", this.endSem);
+        res.put("faculty-position", this.facultyPosition);
+        res.put("comments", this.comments);
+        res.put("securityQ1", this.securityQ1);
+        res.put("securityQ2", this.securityQ2);
+        res.put("backupEmail", this.backupEmail);
+
+        WSRequest request = ws.url("http://localhost:9005/updateUser");
+        return request.addHeader("Content-Type", "application/json")
+                .put(res)
+                .thenApply((WSResponse r) -> {
+                    return r;
+                });
+    }
 
 }

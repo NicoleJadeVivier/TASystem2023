@@ -36,49 +36,65 @@ Seq[Any](format.raw/*4.1*/("""<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <style>
-            .body """),format.raw/*9.19*/("""{"""),format.raw/*9.20*/("""
-                """),format.raw/*10.17*/("""margin-left: 2rem;
-            """),format.raw/*11.13*/("""}"""),format.raw/*11.14*/("""
-            """),format.raw/*12.13*/(""".outer-div """),format.raw/*12.24*/("""{"""),format.raw/*12.25*/("""
-                """),format.raw/*13.17*/("""display: flex;
+            .body """),format.raw/*10.19*/("""{"""),format.raw/*10.20*/("""
+                """),format.raw/*11.17*/("""margin-left: 2rem;
+            """),format.raw/*12.13*/("""}"""),format.raw/*12.14*/("""
+            """),format.raw/*13.13*/(""".outer-div """),format.raw/*13.24*/("""{"""),format.raw/*13.25*/("""
+                """),format.raw/*14.17*/("""display: flex;
                 flex-wrap: wrap;
-            """),format.raw/*15.13*/("""}"""),format.raw/*15.14*/("""
+            """),format.raw/*16.13*/("""}"""),format.raw/*16.14*/("""
 
-            """),format.raw/*17.13*/(""".width """),format.raw/*17.20*/("""{"""),format.raw/*17.21*/("""
-                """),format.raw/*18.17*/("""width: 20rem;
+            """),format.raw/*18.13*/(""".width """),format.raw/*18.20*/("""{"""),format.raw/*18.21*/("""
+                """),format.raw/*19.17*/("""width: 20rem;
                 margin-right: 2rem;
-            """),format.raw/*20.13*/("""}"""),format.raw/*20.14*/("""
-        """),format.raw/*21.9*/("""</style>
+            """),format.raw/*21.13*/("""}"""),format.raw/*21.14*/("""
+
+            """),format.raw/*23.13*/(""".spacer """),format.raw/*23.21*/("""{"""),format.raw/*23.22*/("""
+                """),format.raw/*24.17*/("""flex-grow: 1;
+            """),format.raw/*25.13*/("""}"""),format.raw/*25.14*/("""
+
+            """),format.raw/*27.13*/(""".profile """),format.raw/*27.22*/("""{"""),format.raw/*27.23*/("""
+                """),format.raw/*28.17*/("""color: #10ACE2;
+            """),format.raw/*29.13*/("""}"""),format.raw/*29.14*/("""
+        """),format.raw/*30.9*/("""</style>
     </head>
     <body class="body">
 
         <header class="topbar">
-            <h1 class="focused" style="font-size: 37px;
-                color: #10ACE2">
-                <Strong>"""),_display_(/*28.26*/authorizeMessage),format.raw/*28.42*/("""</Strong>
-                <strong> Dashboard</strong>
-            </h1>
             <div class="outer-div">
-                """),_display_(/*32.18*/for(pos <- positions) yield /*32.39*/ {_display_(Seq[Any](format.raw/*32.41*/("""
-                    """),format.raw/*33.21*/("""<div class="s12 m7 card blue-grey darken-1 width">
+                <div>
+                    <h1 class="focused" style="font-size: 37px;
+                        color: #10ACE2">
+                        <Strong>"""),_display_(/*39.34*/authorizeMessage),format.raw/*39.50*/("""</Strong>
+                        <strong> Dashboard</strong>
+                    </h1>
+                </div>
+                <div class="spacer"></div>
+                <div>
+                    <a href=""""),_display_(/*45.31*/routes/*45.37*/.UserController.userEdit()),format.raw/*45.63*/("""">
+                        <i class="medium material-icons profile">account_box</i>
+                    </a>
+                </div>
+            </div>
+        </header>
+            <div class="outer-div">
+                """),_display_(/*52.18*/for(pos <- positions) yield /*52.39*/ {_display_(Seq[Any](format.raw/*52.41*/("""
+                    """),format.raw/*53.21*/("""<div class="s12 m7 card blue-grey darken-1 width">
                         <div class="card-content white-text">
-                            <span class="card-title">"""),_display_(/*35.55*/pos/*35.58*/.getTitle),format.raw/*35.67*/("""</span>
-                            <p>"""),_display_(/*36.33*/pos/*36.36*/.getDescription),format.raw/*36.51*/("""</p>
+                            <span class="card-title">"""),_display_(/*55.55*/pos/*55.58*/.getTitle),format.raw/*55.67*/("""</span>
+                            <p>"""),_display_(/*56.33*/pos/*56.36*/.getDescription),format.raw/*56.51*/("""</p>
                         </div>
                         <div class="card-action">
-                            <a href=""""),_display_(/*39.39*/routes/*39.45*/.HomeController.newSpecificApplication(pos.getTitle)),format.raw/*39.97*/("""" class="waves-effect waves-light btn">Apply</a>
+                            <a href=""""),_display_(/*59.39*/routes/*59.45*/.HomeController.newSpecificApplication(pos.getTitle)),format.raw/*59.97*/("""" class="waves-effect waves-light btn">Apply</a>
                         </div>
                     </div>
-                """)))}),format.raw/*42.18*/("""
-            """),format.raw/*43.13*/("""</div>
-            <a href=""""),_display_(/*44.23*/routes/*44.29*/.HomeController.addPosition()),format.raw/*44.58*/("""">Post New Position</a>
+                """)))}),format.raw/*62.18*/("""
+            """),format.raw/*63.13*/("""</div>
+            <a href=""""),_display_(/*64.23*/routes/*64.29*/.HomeController.addPosition()),format.raw/*64.58*/("""">Post New Position</a>
             <br/>
-            <a href=""""),_display_(/*46.23*/routes/*46.29*/.HomeController.newApplication()),format.raw/*46.61*/("""">Create New Application</a>
-
-
-
-        </header>
+            <a href=""""),_display_(/*66.23*/routes/*66.29*/.HomeController.newApplication()),format.raw/*66.61*/("""">Create New Application</a>
 
     </body>
 </html>
@@ -98,11 +114,11 @@ Seq[Any](format.raw/*4.1*/("""<!DOCTYPE html>
 
               /*
                   -- GENERATED --
-                  DATE: 2023-03-05T08:24:23.941
+                  DATE: 2023-03-09T14:58:42.572
                   SOURCE: C:/Users/Nicole Vivier/Documents/CS4345/Play/Lab-2-Ebean/Lab-2-Ebean/Frontend/app/views/index.scala.html
-                  HASH: 00b0e9c347e22bab5b83566b040de8c2930c6d66
-                  MATRIX: 651->1|994->24|1122->81|1188->119|1403->307|1431->308|1476->325|1535->356|1564->357|1605->370|1644->381|1673->382|1718->399|1806->459|1835->460|1877->474|1912->481|1941->482|1986->499|2076->561|2105->562|2141->571|2360->763|2397->779|2549->904|2586->925|2626->927|2675->948|2869->1115|2881->1118|2911->1127|2978->1167|2990->1170|3026->1185|3177->1309|3192->1315|3265->1367|3420->1491|3461->1504|3517->1533|3532->1539|3582->1568|3673->1632|3688->1638|3741->1670
-                  LINES: 24->1|29->2|32->3|35->4|40->9|40->9|41->10|42->11|42->11|43->12|43->12|43->12|44->13|46->15|46->15|48->17|48->17|48->17|49->18|51->20|51->20|52->21|59->28|59->28|63->32|63->32|63->32|64->33|66->35|66->35|66->35|67->36|67->36|67->36|70->39|70->39|70->39|73->42|74->43|75->44|75->44|75->44|77->46|77->46|77->46
+                  HASH: 0aeed8113125a2f85842865c14111a007d2bf345
+                  MATRIX: 651->1|994->24|1122->81|1188->119|1499->402|1528->403|1573->420|1632->451|1661->452|1702->465|1741->476|1770->477|1815->494|1903->554|1932->555|1974->569|2009->576|2038->577|2083->594|2173->656|2202->657|2244->671|2280->679|2309->680|2354->697|2408->723|2437->724|2479->738|2516->747|2545->748|2590->765|2646->793|2675->794|2711->803|3012->1077|3049->1093|3282->1299|3297->1305|3344->1331|3593->1553|3630->1574|3670->1576|3719->1597|3913->1764|3925->1767|3955->1776|4022->1816|4034->1819|4070->1834|4221->1958|4236->1964|4309->2016|4464->2140|4505->2153|4561->2182|4576->2188|4626->2217|4717->2281|4732->2287|4785->2319
+                  LINES: 24->1|29->2|32->3|35->4|41->10|41->10|42->11|43->12|43->12|44->13|44->13|44->13|45->14|47->16|47->16|49->18|49->18|49->18|50->19|52->21|52->21|54->23|54->23|54->23|55->24|56->25|56->25|58->27|58->27|58->27|59->28|60->29|60->29|61->30|70->39|70->39|76->45|76->45|76->45|83->52|83->52|83->52|84->53|86->55|86->55|86->55|87->56|87->56|87->56|90->59|90->59|90->59|93->62|94->63|95->64|95->64|95->64|97->66|97->66|97->66
                   -- GENERATED --
               */
           
