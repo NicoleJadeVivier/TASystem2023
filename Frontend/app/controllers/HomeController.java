@@ -1,9 +1,9 @@
 package controllers;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import models.TAPosition;
+import models.User;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 import models.Course;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Software Service Market Place
@@ -97,7 +96,7 @@ public class HomeController extends Controller {
         System.out.println("Username " + username);
         User user = new User();
 
-        TAApplication app = new TAApplication();
+        models.TAApplication app = new models.TAApplication();
         CompletionStage<WSResponse> response = app.getUserInfo(username);
         return response.thenApply(r -> {
             String responseBody = r.getBody();
@@ -130,7 +129,7 @@ public class HomeController extends Controller {
         System.out.println("Username " + username);
         User user = new User();
 
-        TAApplication app = new TAApplication();
+        models.TAApplication app = new models.TAApplication();
         CompletionStage<WSResponse> response = app.getUserInfo(username);
         return response.thenApply(r -> {
             String responseBody = r.getBody();
@@ -224,7 +223,7 @@ public class HomeController extends Controller {
     };
 
     public CompletionStage<Result> newApplicationHandler() {
-        Form<TAApplication> TAApplicationForm = formFactory.form(TAApplication.class).bindFromRequest();
+        Form<models.TAApplication> TAApplicationForm = formFactory.form(models.TAApplication.class).bindFromRequest();
         if (TAApplicationForm.hasErrors()){
             return (CompletionStage<Result>) badRequest(views.html.TAApplication.render(null, courseList));
         }

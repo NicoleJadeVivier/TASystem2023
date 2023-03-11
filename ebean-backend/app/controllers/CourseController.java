@@ -18,8 +18,8 @@ import static play.mvc.Results.redirect;
 public class CourseController {
     public void addCourse() {
         Course course = new Course();
-        course.name = "Software Engineering Principles";
-        course.title = "CS4345";
+        course.name = "Database Concepts";
+        course.title = "CS3330";
         course.save();
 
         Course course2 = new Course();
@@ -32,10 +32,6 @@ public class CourseController {
         course3.title = "CS3353";
         course3.save();
 
-        Course course4 = new Course();
-        course4.name = "Principles of Computer Science";
-        course4.title = "CS1342";
-        course4.save();
 
     }
 

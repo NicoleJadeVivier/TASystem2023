@@ -32,7 +32,8 @@ public class HomeController extends Controller {
         infos.add("Firstname: " + user.firstname);
         Seq<String> infoSeq = JavaConverters.asScalaBufferConverter(infos).asScala().toSeq();
         Logger.info("infos" + infoSeq);
-
+        CourseController course = new CourseController();
+        course.addCourse();
         return ok(views.html.info.render(infoSeq));
     }
 
