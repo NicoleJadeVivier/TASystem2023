@@ -3,7 +3,6 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.TAPosition;
-import models.User;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
